@@ -11,14 +11,15 @@ public class Diccionario extends NodePalabra
 {
     public int numPalabros = 0;
     public static final char separadorDef = '-';
-    Palabra p = null;
+    public Palabra p = null;
     public Diccionario(){
         try{
             Scanner file = new Scanner(new File("diccionario.txt"));
+            next = null;
             while(file.hasNext()){
-                next = new NodePalabra(p,next);
                 Palabra p = new Palabra(file);
                 numPalabros++;
+                next = new NodePalabra(p,next);
             }
         }catch(FileNotFoundException e){System.out.print("No se ha encontrado el archivo");}
     }

@@ -10,7 +10,8 @@ public class Palabra
 {
     public String palabra;
     public String traducción;
-    public String[] significado;
+    public static final int MAX_DEF = 10; 
+    public String[] significado = new String[MAX_DEF];
     
     public Palabra(String p, String trad, String[] sign){
         palabra = p;
@@ -27,21 +28,29 @@ public class Palabra
         }
     }
     public Palabra(Scanner f){
+        try{
+        if(f != null){
         palabra = f.next();
         traducción = f.next();        
         String next = f.next();
-        String aux = "";
         int i = 0;
         while( next.compareTo("+") != 0 ){
             if(next.compareTo( "-") == 0){
+                String aux = "";
                 next = f.next();
-                while(next != "-"){
-                    aux += next;
+                if(next.compareTo("+") != 0){
+                while(next.compareTo( "-") != 0){
+                    aux += next + " ";
                     next = f.next();           
                 }
                 significado[i] = aux;
                 i++;
             }
+            }
         }
+    }
+        else throw new FileNotFoundException();
+    }catch(FileNotFoundException e){System.out.println("Fichero no encontrado");}
+        
     }
 }
