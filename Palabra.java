@@ -27,30 +27,35 @@ public class Palabra
             }
         }
     }
+    /**
+     * Constructor de un objeto Palabra a partir de un fichero.txt
+     * con formato  "Palabra" "traducción" - "Definición 1" - "Definición 2" - +
+     * Se le pueden añadir hasta 10 definiciones
+     */
     public Palabra(Scanner f){
         try{
-        if(f != null){
-        palabra = f.next();
-        traducción = f.next();        
-        String next = f.next();
-        int i = 0;
-        while( next.compareTo("+") != 0 ){
-            if(next.compareTo( "-") == 0){
-                String aux = "";
-                next = f.next();
-                if(next.compareTo("+") != 0){
-                while(next.compareTo( "-") != 0){
-                    aux += next + " ";
-                    next = f.next();           
+            if(f != null){
+                palabra = f.next();
+                traducción = f.next();        
+                String next = f.next();
+                int i = 0;
+                while( next.compareTo("+") != 0 ){
+                    if(next.length() > 1) { System.out.println("Error: Formato incorrecto. " +  next + " debería ser un guion."); return;}
+                    if(next.compareTo("-") == 0){
+                        String aux = "";
+                        next = f.next();
+                        if(next.compareTo("+") != 0){
+                            while(next.compareTo("-") != 0){
+                                aux += next + " ";
+                                next = f.next();           
+                            }
+                            significado[i] = aux;
+                            i++;
+                        }
+                    }
                 }
-                significado[i] = aux;
-                i++;
             }
-            }
-        }
-    }
-        else throw new FileNotFoundException();
-    }catch(FileNotFoundException e){System.out.println("Fichero no encontrado");}
-        
+            else throw new FileNotFoundException();
+        }catch(FileNotFoundException e){System.out.println("Fichero no encontrado");}     
     }
 }
